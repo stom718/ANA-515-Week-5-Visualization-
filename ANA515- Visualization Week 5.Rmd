@@ -1,0 +1,59 @@
+---
+title: "ANA515- Assignment - Week 5"
+author: "Sandeep Tom"
+date: "11/21/2021"
+output:
+  word_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r, include=FALSE}
+#Reading the Data from the URL provided in the github document
+library(tidyverse)
+library(readr)
+library(knitr)
+library(bslib)
+library(dplyr)
+library(expss)
+library(lubridate)
+url <- "https://raw.githubusercontent.com/fivethirtyeight/data/master/us-weather-history/KPHL.csv"
+weather_data <- read_csv(url)
+#Reading the CSV file for weather in PHL 
+```
+```{r, include= TRUE}
+weather_data$date <- ymd(weather_data$date)
+ggplot(data = weather_data, aes(x= date, y = actual_mean_temp))+ geom_point()+theme_light()+
+  labs(x = "Date",y = "Mean Temperature",title = " Weather Data of Philadelphia", subtitle = "Actual Mean Temperature")
+```
+```{r, include= TRUE}
+weather_data$date <- ymd(weather_data$date)
+ggplot(data = weather_data, aes(x= date, y = record_max_temp,))+ geom_point()+theme_dark()+
+  labs(x = "Date",y = "Reccord Max Temperature",title = " Weather Data of Philadelphia", subtitle = "Record Max Temperature")
+
+```
+```{r, include= TRUE}
+weather_data$date <- ymd(weather_data$date)
+ggplot(data = weather_data, aes(x= date, y = record_min_temp))+ geom_point()+theme_dark()+
+  labs(x = "Date",y = "Reccord Min Temperature",title = " Weather Data of Philadelphia", subtitle = "Record Min Temperature")
+
+```
+```{r,include=TRUE}
+weather_data$date <- ymd(weather_data$date)
+ggplot(data = weather_data, aes(x= date, y = record_precipitation))+ geom_point()+theme_minimal()+
+  labs(x = "Date",y = "Reccord Precipitation",title = " Weather Data of Philadelphia")
+```
+
+
+
+
+```{r, include=FALSE}
+ggplot(weather_data, aes( date,record_max_temp,record_min_temp,actual_mean_temp))+
+  geom_raster(aes(fill = record_max_temp))+ scale_fill_gradient(low = "Blue", high = "Red")+  labs(title ="Heat Map", x = "date", y = "Record Teperature")+
+  scale_fill_continuous(name = "Temperature" ) 
+```
+
+
+
+
+
